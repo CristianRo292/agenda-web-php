@@ -504,3 +504,43 @@ body {
     flex: none;
   }
 }
+
+
+/* ==========================================
+   10. ESTADO VACÍO (Empty State)
+   ========================================== */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  margin-top: 1rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 2px dashed var(--color-borde);
+  border-radius: var(--radius-md);
+  transition: var(--transicion-suave);
+}
+
+.empty-state:hover {
+  border-color: var(--color-acento);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.empty-state__icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.empty-state__title {
+  font-family: var(--fuente-titulos);
+  font-size: 1.5rem;
+  color: var(--color-texto-principal);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state__text {
+  color: var(--color-texto-secundario);
+  font-size: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.5;
+}

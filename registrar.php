@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="layout">
     <header class="site-header">
         <div class="contenedor site-header__inner">
-            <a href="index.php" class="logo">Agenda<span>Web</span></a>
+            <a href="index.php" class="logo"><img src="image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span></a>
             <nav class="nav">
                 <a href="index.php" class="nav__link">Mis eventos</a>
                 <a href="registrar.php" class="nav__link is-active">Nuevo evento</a>
