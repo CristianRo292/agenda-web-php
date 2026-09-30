@@ -1,0 +1,506 @@
+/* ==========================================
+   1. VARIABLES Y CONFIGURACIÓN GLOBAL
+   ========================================== */
+:root {
+  /* Paleta Bosque Sereno (Unificada y refinada) */
+  --color-fondo: #e4e8e0;
+  --color-superficie: #ffffff;
+  --color-texto-principal: #2A2630;
+  --color-texto-secundario: #525c4d;
+  --color-texto-placeholder: #8a9485;
+  --color-acento: #335c1f;
+  --color-acento-hover: #264717;
+  --color-borde: #d0d9cb;
+  --color-borde-focus: #335c1f;
+  --color-peligro: #c73e3e;
+  --color-peligro-bg: #fdf2f2;
+  --color-footer: #88a87a;; /* Unificado con el acento hover para coherencia */
+
+  /* Tipografía: Calibri para títulos (Marca), IBM Plex Sans para cuerpo */
+  --fuente-titulos: 'Calibri', 'Candara', 'Segoe', 'Segoe UI', Optima, Arial, sans-serif;
+  --fuente-cuerpo: 'IBM Plex Sans', sans-serif;
+
+  /* Espaciado y efectos (Sistema de 4px/8px) */
+  --space-xs: 0.5rem;  /* 8px */
+  --space-sm: 1rem;    /* 16px */
+  --space-md: 1.5rem;  /* 24px */
+  --space-lg: 2.5rem;  /* 40px */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --shadow-sm: 0 2px 8px rgba(29, 36, 25, 0.04);
+  --shadow-md: 0 8px 24px rgba(29, 36, 25, 0.08);
+  --transicion-suave: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: var(--color-texto-principal);
+  background-color: var(--color-fondo);
+  font-family: var(--fuente-cuerpo);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-sm);
+}
+
+/* ==========================================
+   2. HEADER Y NAVEGACIÓN
+   ========================================== */
+.site-header {
+  background-color: var(--color-acento-hover);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--space-sm) 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--fuente-titulos);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.logo span {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ffffff;
+  color: transparent; /* Efecto de borde elegante */
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.nav__link {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+  transition: var(--transicion-suave);
+}
+
+.nav__link:hover,
+.nav__link.is-active {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+
+/* ==========================================
+   3. CONTENIDO PRINCIPAL Y ALERTAS
+   ========================================== */
+.main-content {
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
+  flex: 1; /* Empuja el footer hacia abajo */
+}
+
+.alert {
+  padding: 1rem var(--space-md);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.alert--ok {
+  background-color: rgba(51, 92, 31, 0.1);
+  color: var(--color-acento);
+  border: 1px solid rgba(51, 92, 31, 0.2);
+}
+
+.alert--notOk {
+  background-color: rgba(199, 62, 62, 0.1);
+  color: var(--color-peligro);
+  border: 1px solid rgba(199, 62, 62, 0.2);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+   4. ENCABEZADO DE PÁGINA
+   ========================================== */
+.page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--space-md);
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.page__title {
+  font-family: var(--fuente-titulos);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-texto-principal);
+  line-height: 1.2;
+}
+
+.page__subtitle {
+  color: var(--color-texto-secundario);
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+}
+
+/* ==========================================
+   5. LISTA DE TARJETAS (GRID)
+   ========================================== */
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-md);
+}
+
+.card {
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transicion-suave);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-acento);
+}
+
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xs);
+}
+
+.card__badge {
+  background-color: rgba(51, 92, 31, 0.1);
+  color: var(--color-acento);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+}
+
+.card__badge--personal {
+  background-color: rgba(82, 92, 77, 0.1);
+  color: var(--color-texto-secundario);
+}
+
+.card__badge--importante {
+  background-color: rgba(199, 62, 62, 0.1);
+  color: var(--color-peligro);
+}
+
+.card__time {
+  font-size: 0.85rem;
+  color: var(--color-texto-secundario);
+  font-weight: 500;
+}
+
+.card__title {
+  font-family: var(--fuente-titulos);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-texto-principal);
+  margin-bottom: var(--space-xs);
+  line-height: 1.3;
+}
+
+.card__text {
+  font-size: 0.95rem;
+  color: var(--color-texto-secundario);
+  line-height: 1.5;
+  margin-bottom: var(--space-md);
+  flex-grow: 1;
+}
+
+.card__actions {
+  display: flex;
+  gap: var(--space-xs);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-borde);
+  margin-top: auto;
+}
+
+.form-inline {
+  margin: 0;
+  flex: 1;
+}
+
+/* ==========================================
+   6. FORMULARIOS (De registrar.php optimizado)
+   ========================================== */
+.contenedor-principal {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-lg) var(--space-sm);
+}
+
+.tarjeta-formulario {
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 560px;
+  padding: var(--space-lg);
+}
+
+.encabezado-formulario {
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.encabezado-formulario h1 {
+  font-family: var(--fuente-titulos);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-texto-principal);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.encabezado-formulario p {
+  color: var(--color-texto-secundario);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.formulario-agenda {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.grupo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.grupo-formulario label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-texto-principal);
+}
+
+.grupo-formulario input,
+.grupo-formulario select,
+.grupo-formulario textarea {
+  font-family: var(--fuente-cuerpo);
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--color-borde);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-superficie);
+  color: var(--color-texto-principal);
+  transition: var(--transicion-suave);
+  outline: none;
+  width: 100%;
+}
+
+.grupo-formulario input::placeholder,
+.grupo-formulario textarea::placeholder {
+  color: var(--color-texto-placeholder);
+}
+
+.grupo-formulario input:focus,
+.grupo-formulario select:focus,
+.grupo-formulario textarea:focus {
+  border-color: var(--color-borde-focus);
+  box-shadow: 0 0 0 4px rgba(51, 92, 31, 0.08);
+}
+
+.grupo-formulario select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23525c4d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.grupo-formulario textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.fila-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+/* ==========================================
+   7. BOTONES (Unificados)
+   ========================================== */
+.btn-primary, .btn-secondary, .btn-danger,
+.btn-primario, .btn-secundario { /* Alias para compatibilidad */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fuente-cuerpo);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transicion-suave);
+  border: 1.5px solid transparent;
+}
+
+/* Alias para que registrar.php funcione sin cambiar todo su HTML original si se prefiere */
+.btn-primario { @apply btn-primary; } 
+.btn-secundario { @apply btn-secondary; }
+
+.btn-primary {
+  background-color: var(--color-acento);
+  color: #ffffff;
+  border-color: var(--color-acento);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-acento-hover);
+  border-color: var(--color-acento-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(51, 92, 31, 0.2);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-acento);
+  border-color: var(--color-borde);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(51, 92, 31, 0.05);
+  border-color: var(--color-acento);
+}
+
+.btn-danger {
+  background-color: transparent;
+  color: var(--color-peligro);
+  border-color: rgba(199, 62, 62, 0.3);
+  width: 100%; /* Para que llene el espacio del form-inline */
+}
+
+.btn-danger:hover {
+  background-color: var(--color-peligro-bg);
+  border-color: var(--color-peligro);
+}
+
+.btn-sm {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  flex: 1;
+  text-align: center;
+}
+
+.acciones-formulario {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-borde);
+}
+
+.acciones-formulario .btn-primary {
+  flex: 2;
+}
+.acciones-formulario .btn-secondary {
+  flex: 1;
+}
+
+/* ==========================================
+   8. FOOTER
+   ========================================== */
+.site-footer {
+  background-color: var(--color-footer);
+  color: #ffffff;
+  text-align: center;
+  padding: var(--space-md) 0;
+  margin-top: auto; /* Empuja el footer al fondo si hay poco contenido */
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-footer b {
+  font-weight: 600;
+  color: #a8d594; /* Un verde claro para resaltar el nombre */
+}
+
+/* ==========================================
+   9. RESPONSIVIDAD
+   ========================================== */
+@media (max-width: 600px) {
+  .page__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .page__header .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .card-list {
+    grid-template-columns: 1fr;
+  }
+
+  .fila-doble {
+    grid-template-columns: 1fr; /* Apilar fecha y hora en móviles */
+  }
+
+  .acciones-formulario {
+    flex-direction: column-reverse; /* Botón principal arriba en móvil */
+  }
+  
+  .acciones-formulario .btn-primary,
+  .acciones-formulario .btn-secondary {
+    width: 100%;
+    flex: none;
+  }
+}

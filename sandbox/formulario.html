@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Evento - AgendaWeb</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600" rel="stylesheet">
+    
+    <!-- Enlace a tu archivo CSS externo -->
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body class="layout">
+    <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.php" class="logo">Agenda<span>Web</span></a>
+      <nav class="nav">
+        <a href="index.php" class="nav__link ">Mis eventos</a>
+        <a href="formulario.html" class="nav__link is-active">Nuevo evento</a>
+      </nav>
+    </div>
+  </header>
+
+    <main class="contenedor-principal">
+        <div class="tarjeta-formulario">
+            <div class="encabezado-formulario">
+                <h1>Registrar Nuevo Evento</h1>
+                <p>Ingresa los detalles de tu cita o actividad para mantener tu agenda organizada.</p>
+            </div>
+
+            <form action="index.php" method="GET" class="formulario-agenda">
+                
+                <div class="grupo-formulario">
+                    <label for="titulo">Título del Evento</label>
+                    <input type="text" id="titulo" name="titulo" placeholder="Ej. Reunión de equipo, Examen de Flutter..." required autocomplete="off">
+                </div>
+
+                <div class="fila-doble">
+                    <div class="grupo-formulario">
+                        <label for="fecha">Fecha</label>
+                        <input type="date" id="fecha" name="fecha" required>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="hora">Hora</label>
+                        <input type="time" id="hora" name="hora" required>
+                    </div>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="categoria">Categoría</label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="" disabled selected>Selecciona una categoría</option>
+                        <option value="trabajo">Trabajo / Universidad</option>
+                        <option value="personal">Personal</option>
+                        <option value="importante">Importante</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="descripcion">Descripción / Notas</label>
+                    <textarea id="descripcion" name="descripcion" rows="4" placeholder="Agrega detalles o recordatorios importantes..." spellcheck="true"></textarea>
+                </div>
+
+                <div class="acciones-formulario">
+                    <button type="reset" class="btn-secundario">Limpiar</button>
+                    <button type="submit" class="btn-primario">Guardar Evento</button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>
