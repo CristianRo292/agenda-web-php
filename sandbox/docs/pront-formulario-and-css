@@ -1,0 +1,13 @@
+bien entonces:
+Actúa como diseñador de identidad visual (UI). 
+
+Estoy creando "AgendaWeb", una aplicación web para registrar y organizar eventos y citas. Quiero un mini sistema de marca con esta personalidad: [minimalista y sereno / elegante y profesional / cálido y amigable ]. Color base preferido (opcional): [tonos verdes y neutros suaves].
+
+Entrégame, en español:
+1) Un nombre corto para el estilo.
+2) Una PALETA de 6 colores (código HEX + su ROL): fondo, superficie (tarjetas), texto principal, texto secundario, acento (botones/ enlaces) y línea/borde. Asegúrate de buen CONTRASTE (mínimo nivel AA de WCAG) entre el texto y su fondo.
+3) TIPOGRAFÍAS de Google Fonts que existan: una para títulos y una para el cuerpo. Incluye la etiqueta <link> de Google Fonts.
+4) Un bloque CSS ":root" con variables (custom properties) LISTO para pegar, usando esos colores y fuentes.
+5) Una frase que explique por qué esa combinación transmite esa personalidad.
+
+Formato: primero la explicación; al final, el bloque de código CSS.
