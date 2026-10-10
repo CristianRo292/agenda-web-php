@@ -1,7 +1,20 @@
 <?php
 require 'data/conexion.php';
 
-$sql = "SELECT id, titulo, fecha, hora, categoria, descripcion FROM eventos ORDER BY fecha ASC, hora ASC";
+// ⭐ Consulta de categorías (para el modal de edición)
+$categorias = [];
+$resultCat = $mysqli->query("SELECT id, nombre FROM categoria ORDER BY nombre ASC");
+if ($resultCat) {
+    while ($row = $resultCat->fetch_assoc()) {
+        $categorias[] = $row;
+    }
+}
+
+// ⭐ Consulta de eventos con JOIN para obtener el nombre de la categoría
+$sql = "SELECT e.id, e.titulo, e.fecha, e.hora, e.categoria_id, e.descripcion, c.nombre AS categoria_nombre 
+        FROM eventos e 
+        LEFT JOIN categoria c ON e.categoria_id = c.id 
+        ORDER BY e.fecha ASC, e.hora ASC";
 $result = $mysqli->query($sql);
 
 $eventos = [];
@@ -29,7 +42,7 @@ if ($result) {
 
   <header class="site-header">
     <div class="contenedor site-header__inner">
-      <a href="index.php" class="logo"><img src="image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span></a>
+      <a href="index.php" class="logo">Agenda<span>Web</span></a>
       <nav class="nav">
         <a href="index.php" class="nav__link is-active">Mis eventos</a>
         <a href="registrar.php" class="nav__link">Nuevo evento</a>
@@ -71,36 +84,36 @@ if ($result) {
                     $fecha_obj = new DateTime($evento['fecha']);
                     $fecha_visual = $fecha_obj->format('d/m/Y');
                     $hora_visual = !empty($evento['hora']) ? substr($evento['hora'], 0, 5) : 'Todo el día';
-                    $datetime_attr = $evento['fecha'] . 'T' . $evento['hora'];
+                    $datetime_attr = $evento['fecha'] . 'T' . ($evento['hora'] ?? '00:00');
                     
+                    // ⭐ Clase del badge según el nombre de la categoría (desde BD)
                     $badge_class = 'card__badge';
-                    if ($evento['categoria'] === 'personal') {
+                    $cat_nombre = $evento['categoria_nombre'] ?? 'Sin categoría';
+                    $cat_lower = strtolower($cat_nombre);
+                    
+                    if ($cat_lower === 'personal') {
                         $badge_class .= ' card__badge--personal';
-                    } elseif ($evento['categoria'] === 'importante') {
+                    } elseif ($cat_lower === 'importante') {
                         $badge_class .= ' card__badge--importante';
                     }
-                    
-                    $categoria_visual = ucfirst($evento['categoria']);
                 ?>
 
-                <!-- ⭐ AÑADIMOS data-attributes con los datos del evento -->
                 <article class="card"
                     data-id="<?= $evento['id'] ?>"
                     data-titulo="<?= htmlspecialchars($evento['titulo'], ENT_QUOTES) ?>"
                     data-fecha="<?= htmlspecialchars($evento['fecha']) ?>"
-                    data-hora="<?= htmlspecialchars($evento['hora']) ?>"
-                    data-categoria="<?= htmlspecialchars($evento['categoria']) ?>"
+                    data-hora="<?= htmlspecialchars($evento['hora'] ?? '') ?>"
+                    data-categoria-id="<?= $evento['categoria_id'] ?>"
                     data-descripcion="<?= htmlspecialchars($evento['descripcion'], ENT_QUOTES) ?>">
                     
                     <div class="card__header">
-                        <span class="<?= $badge_class ?>"><?= $categoria_visual ?></span>
+                        <span class="<?= $badge_class ?>"><?= htmlspecialchars(ucfirst($cat_nombre)) ?></span>
                         <time class="card__time" datetime="<?= $datetime_attr ?>"><?= $fecha_visual ?> · <?= $hora_visual ?></time>
                     </div>
                     <h2 class="card__title"><?= htmlspecialchars($evento['titulo']) ?></h2>
                     <p class="card__text"><?= nl2br(htmlspecialchars($evento['descripcion'])) ?></p>
 
                     <div class="card__actions">
-                        <!-- ⭐ Cambiamos href por un botón que abre el modal -->
                         <button type="button" class="btn-secondary btn-sm btn-editar">Editar</button>
                         <form method="post" action="borrar.php" class="form-inline" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este evento?');">
                             <input type="hidden" name="id" value="<?= $evento['id'] ?>">
@@ -125,7 +138,7 @@ if ($result) {
 
     <?php endif; ?>
 
-    <!-- ⭐ MODAL DE EDICIÓN FLOTANTE -->
+    <!-- MODAL DE EDICIÓN FLOTANTE -->
     <div class="modal-overlay" id="modalEditar" aria-hidden="true" role="dialog">
         <div class="modal">
             <div class="modal__header">
@@ -154,11 +167,11 @@ if ($result) {
 
                 <div class="grupo-formulario">
                     <label for="edit_categoria">Categoría</label>
-                    <select id="edit_categoria" name="categoria" required>
-                        <option value="trabajo">Trabajo / Universidad</option>
-                        <option value="personal">Personal</option>
-                        <option value="importante">Importante</option>
-                        <option value="otro">Otro</option>
+                    <select id="edit_categoria" name="categoria_id" required>
+                        <!-- ⭐ Opciones cargadas dinámicamente desde la BD -->
+                        <?php foreach ($categorias as $cat): ?>
+                            <option value="<?= $cat['id'] ?>"><?= htmlspecialchars(ucfirst($cat['nombre'])) ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 
@@ -183,7 +196,6 @@ if ($result) {
     </div>
   </footer>
 
-  <!-- ⭐ JAVASCRIPT para manejar el modal -->
   <script src="js/modal-editar.js"></script>
 
 </body>

@@ -1,23 +1,20 @@
 <?php
 header('Content-Type: application/json');
 
-// Solo aceptar POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['success' => false, 'message' => 'Método no permitido']);
     exit;
 }
 
-// Obtener y validar datos
+// ⭐ Validar datos
 $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 $titulo = trim($_POST['titulo'] ?? '');
 $fecha = trim($_POST['fecha'] ?? '');
 $hora = trim($_POST['hora'] ?? '');
-$categoria = trim($_POST['categoria'] ?? '');
+$categoria_id = filter_input(INPUT_POST, 'categoria_id', FILTER_VALIDATE_INT);
 $descripcion = trim($_POST['descripcion'] ?? '');
 
-// Validaciones
 $errores = [];
-$categoriasOK = ['trabajo', 'personal', 'importante', 'otro'];
 
 if (!$id) {
     $errores[] = 'ID inválido.';
@@ -28,8 +25,19 @@ if ($titulo === '' || mb_strlen($titulo) > 120) {
 if ($fecha === '' || !DateTime::createFromFormat('Y-m-d', $fecha)) {
     $errores[] = 'Fecha inválida.';
 }
-if (!in_array($categoria, $categoriasOK, true)) {
-    $errores[] = 'Categoría inválida.';
+// ⭐ Validar que categoria_id exista en la BD
+if (!$categoria_id) {
+    $errores[] = 'Debes seleccionar una categoría válida.';
+} else {
+    require 'conexion.php';
+    $stmtCat = $mysqli->prepare("SELECT id FROM categoria WHERE id = ?");
+    $stmtCat->bind_param("i", $categoria_id);
+    $stmtCat->execute();
+    $stmtCat->store_result();
+    if ($stmtCat->num_rows === 0) {
+        $errores[] = 'La categoría seleccionada no existe.';
+    }
+    $stmtCat->close();
 }
 
 if (!empty($errores)) {
@@ -37,24 +45,25 @@ if (!empty($errores)) {
     exit;
 }
 
-// Conexión y actualización
+// ⭐ Actualizar usando categoria_id
 require 'conexion.php';
 
-$sql = "UPDATE eventos SET titulo = ?, fecha = ?, hora = ?, categoria = ?, descripcion = ? WHERE id = ?";
+$sql = "UPDATE eventos SET titulo = ?, fecha = ?, hora = ?, categoria_id = ?, descripcion = ? WHERE id = ?";
 $stmt = $mysqli->prepare($sql);
 
 if ($stmt) {
-    $stmt->bind_param("sssssi", $titulo, $fecha, $hora, $categoria, $descripcion, $id);
+    $stmt->bind_param("sssisi", $titulo, $fecha, $hora, $categoria_id, $descripcion, $id);
     $stmt->execute();
     
-    if ($stmt->affected_rows >= 0) { // >= 0 porque puede no haber cambios si es igual
+    if ($stmt->errno === 0) {
         $stmt->close();
         $mysqli->close();
         echo json_encode(['success' => true]);
     } else {
+        $error_msg = $stmt->error;
         $stmt->close();
         $mysqli->close();
-        echo json_encode(['success' => false, 'message' => 'No se pudo actualizar.']);
+        echo json_encode(['success' => false, 'message' => 'Error: ' . $error_msg]);
     }
 } else {
     $mysqli->close();
