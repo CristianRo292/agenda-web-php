@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/auth/sesion.php';
 header('Content-Type: application/json');
 
 // Solo aceptar POST
@@ -40,11 +41,15 @@ if (!empty($errores)) {
 // Conexión y actualización
 require 'conexion.php';
 
-$sql = "UPDATE eventos SET titulo = ?, fecha = ?, hora = ?, categoria = ?, descripcion = ? WHERE id = ?";
+// Reemplaza tu consulta UPDATE por esta:
+$sql = "UPDATE eventos 
+        SET titulo = ?, fecha = ?, hora = ?, categoria_id = ?, descripcion = ? 
+        WHERE id = ? AND usuario_id = ?";
 $stmt = $mysqli->prepare($sql);
 
 if ($stmt) {
-    $stmt->bind_param("sssssi", $titulo, $fecha, $hora, $categoria, $descripcion, $id);
+    // 'sssisii' = string, string, string, integer, string, integer, integer
+    $stmt->bind_param("sssisii", $titulo, $fecha, $hora, $categoria_id, $descripcion, $id, $usuarioId);
     $stmt->execute();
     
     if ($stmt->affected_rows >= 0) { // >= 0 porque puede no haber cambios si es igual

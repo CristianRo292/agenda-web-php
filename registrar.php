@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/auth/sesion.php';
 require 'data/conexion.php';
 
 // ⭐ Cargar categorías dinámicamente desde la BD
@@ -53,10 +54,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errores)) {
-        $sql = "INSERT INTO eventos (titulo, fecha, hora, categoria_id, descripcion)
-                VALUES (?, ?, ?, ?, ?)";
+      
+        $sql = "INSERT INTO eventos (usuario_id, titulo, fecha, hora, categoria_id, descripcion)
+                VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param("sssis", $titulo, $fecha, $hora, $categoria_id_int, $descripcion);
+        // Nota: 'isssis' = integer, string, string, string, integer, string
+        $stmt->bind_param('isssis', $usuarioId, $titulo, $fecha, $hora, $categoria_id_int, $descripcion);
         
         if ($stmt->execute()) {
             $stmt->close();

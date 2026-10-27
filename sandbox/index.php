@@ -1,8 +1,19 @@
 <?php
+require __DIR__ . '/auth/sesion.php';
 require 'data/conexion.php';
 
-$sql = "SELECT id, titulo, fecha, hora, categoria, descripcion FROM eventos ORDER BY fecha ASC, hora ASC";
-$result = $mysqli->query($sql);
+// Reemplaza tu consulta actual por esta:
+$stmt = $mysqli->prepare(
+    'SELECT e.id, e.titulo, e.fecha, e.hora, e.descripcion, e.categoria_id,
+            c.nombre AS categoria_nombre 
+       FROM eventos e 
+       LEFT JOIN categoria c ON c.id = e.categoria_id 
+      WHERE e.usuario_id = ? 
+      ORDER BY e.fecha ASC, e.hora ASC'
+);
+$stmt->bind_param('i', $usuarioId);
+$stmt->execute();
+$result = $stmt->get_result();
 
 $eventos = [];
 if ($result) {
@@ -10,6 +21,7 @@ if ($result) {
         $eventos[] = $row;
     }
 }
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +35,7 @@ if ($result) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body class="layout">
 
@@ -33,6 +45,10 @@ if ($result) {
       <nav class="nav">
         <a href="index.php" class="nav__link is-active">Mis eventos</a>
         <a href="registrar.php" class="nav__link">Nuevo evento</a>
+      </nav>
+      <nav class="nav">
+        <span class="nav__link" style="cursor: default; border-bottom: none;">Hola, <?= e($usuarioNombre) ?></span>
+        <a href="logout.php" class="nav__link">Salir</a>
       </nav>
     </div>
   </header>

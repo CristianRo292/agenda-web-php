@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/auth/sesion.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -48,22 +49,25 @@ if (!empty($errores)) {
 // ⭐ Actualizar usando categoria_id
 require 'conexion.php';
 
-$sql = "UPDATE eventos SET titulo = ?, fecha = ?, hora = ?, categoria_id = ?, descripcion = ? WHERE id = ?";
+// Reemplaza tu consulta UPDATE por esta:
+$sql = "UPDATE eventos 
+        SET titulo = ?, fecha = ?, hora = ?, categoria_id = ?, descripcion = ? 
+        WHERE id = ? AND usuario_id = ?";
 $stmt = $mysqli->prepare($sql);
 
 if ($stmt) {
-    $stmt->bind_param("sssisi", $titulo, $fecha, $hora, $categoria_id, $descripcion, $id);
+    // 'sssisii' = string, string, string, integer, string, integer, integer
+    $stmt->bind_param("sssisii", $titulo, $fecha, $hora, $categoria_id, $descripcion, $id, $usuarioId);
     $stmt->execute();
     
-    if ($stmt->errno === 0) {
+    if ($stmt->affected_rows >= 0) { // >= 0 porque puede no haber cambios si es igual
         $stmt->close();
         $mysqli->close();
         echo json_encode(['success' => true]);
     } else {
-        $error_msg = $stmt->error;
         $stmt->close();
         $mysqli->close();
-        echo json_encode(['success' => false, 'message' => 'Error: ' . $error_msg]);
+        echo json_encode(['success' => false, 'message' => 'No se pudo actualizar.']);
     }
 } else {
     $mysqli->close();

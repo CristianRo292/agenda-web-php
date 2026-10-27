@@ -1,10 +1,17 @@
 <?php
+require __DIR__ . '/auth/sesion.php';
 $titulo = '';
 $fecha = '';
 $hora = '';
 $categoria = '';
 $descripcion = '';
 
+
+// session_start();
+// if (isset($_SESSION['uid']))
+//     {
+//         header('Location: index.php')
+//     }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $titulo     = trim($_POST['titulo']     ?? '');
@@ -40,12 +47,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (empty($errores)) {
-    require 'data/conexion.php';
+    require '/data/conexion.php';
 
-    $sql = "INSERT INTO eventos (titulo, fecha, hora, categoria, descripcion)
-            VALUES (?, ?, ?, ?, ?)";
+    // $sql = "INSERT INTO eventos (titulo, fecha, hora, categoria, descripcion)
+    //         VALUES (?, ?, ?, ?, ?)";
+    // $stmt = $mysqli->prepare($sql);
+    // $stmt->bind_param("sssss", $titulo, $fecha, $hora, $categoria, $descripcion);
+    
+    $sql = "INSERT INTO eventos (usuario_id, titulo, fecha, hora, categoria_id, descripcion)
+            VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("sssss", $titulo, $fecha, $hora, $categoria, $descripcion);
+    // Nota: 'isssis' = integer, string, string, string, integer, string
+    $stmt->bind_param('isssis', $usuarioId, $titulo, $fecha, $hora, $categoria_id_int, $descripcion);
+
     $stmt->execute(); 
     $nuevoId = $stmt->insert_id; 
     $stmt->close();
