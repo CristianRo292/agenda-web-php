@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/auth/sesion.php';
+require __DIR__ . '/../auth/sesion.php';
 // 1. Verificar que la petición sea por método POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../index.php');

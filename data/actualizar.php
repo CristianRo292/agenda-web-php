@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/auth/sesion.php';
+require __DIR__ . '/../auth/sesion.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

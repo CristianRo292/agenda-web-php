@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['uid'])) {
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit;
 }
 require __DIR__ . '/../data/conexion.php';
@@ -43,13 +43,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="layout">
     <header class="site-header">
         <div class="contenedor site-header__inner">
-            <a href="login.php" class="logo">Agenda<span>Web</span></a>
+            <a href="../index.php" class="logo">
+                <img src="../image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span>
+            </a>
         </div>
     </header>
 
     <main class="contenedor-principal">
         <div class="tarjeta-formulario">
             <div class="encabezado-formulario">
+                <!-- ✨ NUEVA IMAGEN REDONDA DE PERFIL / LOGO -->
+                <img src="../image/imagenLogiFormal.png" alt="Avatar de AgendaWeb" class="login-avatar">
+                
                 <h1>Iniciar Sesión</h1>
                 <p>Bienvenido de nuevo a tu agenda personal.</p>
             </div>
@@ -76,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="acciones-formulario">
-                    <a href="/sandbox/auth/registro.php" class="btn-secondary" style="text-align:center;">Crear cuenta</a>
+                    <a href="registro.php" class="btn-secondary" style="text-align:center;">Crear cuenta</a>
                     <button type="submit" class="btn-primary">Entrar</button>
                 </div>
             </form>

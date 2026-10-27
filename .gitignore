@@ -1,0 +1,5 @@
+# Ignorar toda la carpeta sandbox
+sandbox/
+
+# Ignorar únicamente el archivo de conexión en la carpeta data
+data/conexion.php

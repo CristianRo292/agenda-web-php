@@ -48,7 +48,7 @@ if ($result) {
 </head>
 <body class="layout">
 
-  <header class="site-header">
+  <!-- <header class="site-header">
     <div class="contenedor site-header__inner">
       <a href="index.php" class="logo">Agenda<span>Web</span></a>
       <nav class="nav">
@@ -56,6 +56,18 @@ if ($result) {
         <a href="registrar.php" class="nav__link">Nuevo evento</a>
         <span class="nav__link" style="cursor: default; border-bottom: none;">Hola, <?= e($usuarioNombre) ?></span>
         <a href="/auth/logout.php" class="nav__link">Salir</a>
+      </nav>
+    </div>
+  </header> -->
+  <header class="site-header">
+    <div class="contenedor site-header__inner">
+      <a href="index.php" class="logo"><img src="image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span></a>
+      <nav class="nav">
+        <span class="nav__link" style="cursor: default; border-bottom: none;">Hola, <?= e($usuarioNombre) ?></span>
+        <a href="/auth/logout.php" class="nav__link">Salir</a>
+        <a href="index.php" class="nav__link is-active">Mis eventos</a>
+        <a href="registrar.php" class="nav__link">Nuevo evento</a>
+        
       </nav>
     </div>
   </header>
