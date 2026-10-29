@@ -36,7 +36,7 @@ if (isset($_SESSION['uid']))
             }
             if (empty($errores)) 
             {
-                $hash = password_hash($clave, PASSWORD_DEFAULT);
+                $hash = password_hash($clave, PASSWORD_DEFAULT); // funcion nativa de php que trasforma la clave en has
                 try 
                 {
                     $stmt = $mysqli->prepare('INSERT INTO usuarios (nombre, correo, clave_hash) VALUES (?, ?, ?)');
@@ -75,7 +75,9 @@ if (isset($_SESSION['uid']))
 <body class="layout">
     <header class="site-header">
         <div class="contenedor site-header__inner">
-            <a href="login.php" class="logo">Agenda<span>Web</span></a>
+            <a href="../index.php" class="logo">
+                <img src="../image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span>
+            </a>
         </div>
     </header>
 
@@ -116,9 +118,10 @@ if (isset($_SESSION['uid']))
                 </div>
 
                 <div class="acciones-formulario">
-                    <a href="login.php" class="btn-secondary" style="text-align:center;">Ya tengo cuenta</a>
+                    <!-- <a href="login.php" class="btn-secondary" style="text-align:center;">Ya tengo cuenta</a> -->
                     <button type="submit" class="btn-primary">Crear cuenta</button>
                 </div>
+                <p class="txt_center">¿Ya tienes cuenta?🙂 <a href="login.php">Inisia Sesión aquí</a></p>
             </form>
         </div>
     </main>

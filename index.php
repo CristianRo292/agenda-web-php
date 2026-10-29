@@ -1,7 +1,9 @@
 <?php
 require __DIR__ . '/auth/sesion.php';
-require 'data/conexion.php';
+require __DIR__ . '/data/conexion.php';
 
+// ⭐ Capturar término de búsqueda
+$busqueda = trim($_GET['busqueda'] ?? '');
 
 // ⭐ Consulta de categorías (para el modal de edición)
 $categorias = [];
@@ -12,16 +14,29 @@ if ($resultCat) {
     }
 }
 
-// ⭐ Consulta de eventos con JOIN para obtener el nombre de la categoría
-$stmt = $mysqli->prepare(
-    'SELECT e.id, e.titulo, e.fecha, e.hora, e.descripcion, e.categoria_id,
-            c.nombre AS categoria_nombre 
-       FROM eventos e 
-       LEFT JOIN categoria c ON c.id = e.categoria_id 
-      WHERE e.usuario_id = ? 
-      ORDER BY e.fecha ASC, e.hora ASC'
-);
-$stmt->bind_param('i', $usuarioId);
+// ⭐ Consulta de eventos con soporte de búsqueda dinámica
+$sql = 'SELECT e.id, e.titulo, e.fecha, e.hora, e.descripcion, e.categoria_id,
+               c.nombre AS categoria_nombre 
+          FROM eventos e 
+          LEFT JOIN categoria c ON c.id = e.categoria_id 
+         WHERE e.usuario_id = ?';
+
+$params = [$usuarioId];
+$types = 'i';
+
+if ($busqueda !== '') {
+    $sql .= ' AND (e.titulo LIKE ? OR e.descripcion LIKE ? /*OR c.nombre LIKE ?*/)';
+    $searchTerm = '%' . $busqueda . '%';
+    $params[] = $searchTerm;
+    $params[] = $searchTerm;
+    // $params[] = $searchTerm;
+    $types .= 'ss';
+}
+
+$sql .= ' ORDER BY e.fecha ASC, e.hora ASC';
+
+$stmt = $mysqli->prepare($sql);
+$stmt->bind_param($types, ...$params); // Splat operator para bind_param dinámico
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -48,26 +63,16 @@ if ($result) {
 </head>
 <body class="layout">
 
-  <!-- <header class="site-header">
-    <div class="contenedor site-header__inner">
-      <a href="index.php" class="logo">Agenda<span>Web</span></a>
-      <nav class="nav">
-        <a href="index.php" class="nav__link is-active">Mis eventos</a>
-        <a href="registrar.php" class="nav__link">Nuevo evento</a>
-        <span class="nav__link" style="cursor: default; border-bottom: none;">Hola, <?= e($usuarioNombre) ?></span>
-        <a href="/auth/logout.php" class="nav__link">Salir</a>
-      </nav>
-    </div>
-  </header> -->
   <header class="site-header">
     <div class="contenedor site-header__inner">
-      <a href="index.php" class="logo"><img src="image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span></a>
+      <a href="index.php" class="logo">
+        <img src="image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span>
+      </a>
       <nav class="nav">
         <span class="nav__link" style="cursor: default; border-bottom: none;">Hola, <?= e($usuarioNombre) ?></span>
-        <a href="/auth/logout.php" class="nav__link">Salir</a>
+        <a href="auth/logout.php" class="nav__link">Salir</a>
         <a href="index.php" class="nav__link is-active">Mis eventos</a>
         <a href="registrar.php" class="nav__link">Nuevo evento</a>
-        
       </nav>
     </div>
   </header>
@@ -89,13 +94,27 @@ if ($result) {
         <div class="alert alert--notOk" role="status"><span>⚠️</span> No se pudo guardar el evento.</div>
     <?php endif; ?>
 
-    <!-- Encabezado -->
+    <!-- Encabezado con Búsqueda y Botón -->
     <div class="page__header">
       <div class="page__titles">
         <h1 class="page__title">Mis eventos</h1>
-        <p class="page__subtitle"><?= count($eventos) ?> eventos registrados en tu agenda</p>
+        <p class="page__subtitle">
+            <?= $busqueda !== '' ? 'Resultados de la búsqueda' : count($eventos) . ' eventos registrados en tu agenda' ?>
+        </p>
       </div>
-      <a href="registrar.php" class="btn-primary">+ Nuevo evento</a>
+      
+      <div class="page__actions">
+        <!-- Barra de búsqueda estilo iOS -->
+        <form method="GET" action="index.php" class="search-form">
+          <input type="search" name="busqueda" placeholder="Buscar por título, descripción..." value="<?= htmlspecialchars($busqueda) ?>" aria-label="Buscar eventos">
+          <button type="submit" class="btn-search" aria-label="Buscar">🔍</button>
+          <?php if ($busqueda !== ''): ?>
+            <a href="index.php" class="btn-clear" title="Limpiar búsqueda">✕</a>
+          <?php endif; ?>
+        </form>
+        
+        <a href="registrar.php" class="btn-primary">+ Nuevo evento</a>
+      </div>
     </div>
 
     <?php if (!empty($eventos)): ?>
@@ -108,7 +127,6 @@ if ($result) {
                     $hora_visual = !empty($evento['hora']) ? substr($evento['hora'], 0, 5) : 'Todo el día';
                     $datetime_attr = $evento['fecha'] . 'T' . ($evento['hora'] ?? '00:00');
                     
-                    // ⭐ Clase del badge según el nombre de la categoría (desde BD)
                     $badge_class = 'card__badge';
                     $cat_nombre = $evento['categoria_nombre'] ?? 'Sin categoría';
                     $cat_lower = strtolower($cat_nombre);
@@ -137,7 +155,7 @@ if ($result) {
 
                     <div class="card__actions">
                         <button type="button" class="btn-secondary btn-sm btn-editar">Editar</button>
-                        <form method="post" action="borrar.php" class="form-inline" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este evento?');">
+                        <form method="post" action="data/borrar.php" class="form-inline" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este evento?');">
                             <input type="hidden" name="id" value="<?= $evento['id'] ?>">
                             <button type="submit" class="btn-danger btn-sm">Eliminar</button>
                         </form>
@@ -150,12 +168,18 @@ if ($result) {
     <?php else: ?>
         
         <div class="empty-state">
-            <div class="empty-state__icon">📅</div>
-            <h3 class="empty-state__title">No hay eventos registrados</h3>
-            <p class="empty-state__text">Tu agenda está libre por ahora. ¡Aprovecha para organizar tu primer evento!</p>
-            <a href="registrar.php" class="btn-primary" style="margin-top: 1.5rem; display: inline-flex;">
-                + Agregar primer evento
-            </a>
+            <!-- <div class="empty-state__icon">🔍</div> -->
+            <h3 class="empty-state__title">
+                <?= $busqueda !== '' ? 'No se encontraron resultados' : 'No hay eventos registrados' ?>
+            </h3>
+            <p class="empty-state__text">
+                <?= $busqueda !== '' ? 'Intenta con otros términos de búsqueda.' : 'Tu agenda está libre por ahora. ¡Aprovecha para organizar tu primer evento!' ?>
+            </p>
+            <?php if ($busqueda !== ''): ?>
+                <a href="index.php" class="btn-primary" style="margin-top: 1.5rem; display: inline-flex;">Ver todos los eventos</a>
+            <?php else: ?>
+                <a href="registrar.php" class="btn-primary" style="margin-top: 1.5rem; display: inline-flex;">+ Agregar primer evento</a>
+            <?php endif; ?>
         </div>
 
     <?php endif; ?>
@@ -190,7 +214,6 @@ if ($result) {
                 <div class="grupo-formulario">
                     <label for="edit_categoria">Categoría</label>
                     <select id="edit_categoria" name="categoria_id" required>
-                        <!-- ⭐ Opciones cargadas dinámicamente desde la BD -->
                         <?php foreach ($categorias as $cat): ?>
                             <option value="<?= $cat['id'] ?>"><?= htmlspecialchars(ucfirst($cat['nombre'])) ?></option>
                         <?php endforeach; ?>

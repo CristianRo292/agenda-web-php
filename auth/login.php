@@ -81,9 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="acciones-formulario">
-                    <a href="registro.php" class="btn-secondary" style="text-align:center;">Crear cuenta</a>
+                    <!-- <a href="registro.php" class="btn-secondary" style="text-align:center;">Crear cuenta</a> -->
                     <button type="submit" class="btn-primary">Entrar</button>
                 </div>
+                <p class="txt_center">¿No tienes cuenta? 😶 <a href="registro.php">Crea una aquí</a></p>
             </form>
         </div>
     </main>

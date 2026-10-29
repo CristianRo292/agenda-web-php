@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/auth/sesion.php';
+require __DIR__ . '/../auth/sesion.php';
 // 1. Verificar que la petición sea por método POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../index.php');
@@ -20,9 +20,6 @@ if (!$id || !filter_var($id, FILTER_VALIDATE_INT)) {
 require 'conexion.php';
 
 // 4. Preparar y ejecutar la consulta de eliminación
-// $sql = "DELETE FROM eventos WHERE id = ?";
-// $stmt = $mysqli->prepare($sql);
-// Reemplaza tu consulta DELETE por esta:
 $sql = "DELETE FROM eventos WHERE id = ? AND usuario_id = ?";
 $stmt = $mysqli->prepare($sql);
 

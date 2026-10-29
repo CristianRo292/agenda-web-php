@@ -64,6 +64,21 @@ body {
   flex-direction: column;
 }
 
+.txt_center {
+  text-align: center;
+}
+
+/* color de los enlaces */
+a{
+  color:var(--color-text-primary);
+  font-weight: bolder;
+  text-decoration: none;
+}
+/* color de los enlaces al presionar */
+a:hover{
+  color: var(--color-accent);
+}
+
 .contenedor {
   width: 100%;
   max-width: 1000px;
@@ -492,6 +507,7 @@ body {
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(45, 90, 27, 0.4);
+  color: var(--color-bg-base);
 }
 
 .btn-primary:active {
@@ -721,5 +737,97 @@ body {
   .modal-overlay {
     align-items: flex-end;
     padding: 0;
+  }
+}
+/* ==========================================
+   11. BARRA DE BÚSQUEDA (Estilo iOS)
+   ========================================== */
+.page__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1.5px solid rgba(92, 107, 87, 0.3);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  transition: var(--transition-fast);
+}
+
+.search-form:focus-within {
+  background: #ffffff;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-soft);
+}
+
+/* Anular estilos globales de inputs solo para la búsqueda */
+.search-form input[type="search"] {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 8px 4px !important;
+  font-size: 0.95rem !important;
+  width: 200px;
+  outline: none !important;
+  color: var(--color-text-primary) !important;
+}
+
+.search-form input[type="search"]::placeholder {
+  color: var(--color-text-placeholder) !important;
+}
+
+.btn-search, .btn-clear {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+  text-decoration: none;
+}
+
+.btn-search:hover, .btn-clear:hover {
+  color: var(--color-accent);
+}
+
+.btn-clear {
+  font-size: 1rem;
+  color: var(--color-text-placeholder);
+  margin-left: 4px;
+}
+
+/* Ajustes responsivos para la búsqueda */
+@media (max-width: 600px) {
+  .page__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .page__actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-form {
+    width: 100%;
+  }
+  
+  .search-form input[type="search"] {
+    width: 100%;
+  }
+  
+  .page__actions .btn-primary {
+    width: 100%;
+    text-align: center;
   }
 }

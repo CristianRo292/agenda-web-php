@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             campos.titulo.value = card.dataset.titulo;
             campos.fecha.value = card.dataset.fecha;
             campos.hora.value = card.dataset.hora;
-            campos.categoria.value = card.dataset.categoria;
+            campos.categoria.value = card.dataset.categoriaId;
             campos.descripcion.value = card.dataset.descripcion;
             
             // Muestra el modal en pantalla llamando a la función auxiliar

@@ -1,3 +1,5 @@
+USE db;
+
 -- 1. Respaldo de seguridad
 CREATE TABLE eventos_respaldo_p8 AS SELECT * FROM eventos;
 
@@ -15,6 +17,8 @@ CREATE TABLE usuarios (
 -- 3. Agregar columna usuario_id a eventos (permite nulos temporalmente)
 ALTER TABLE eventos ADD COLUMN usuario_id INT NULL AFTER id;
 
+INSERT INTO usuarios(nombre,correo,clave_hash,creado_en)
+    -> VALUES ('CRISTIAN','CRISTIAN@GMAIL.COM','GTRGRFREWFDWE','1000-01-01 00:00:00');
 -- 4. Asignar eventos existentes a tu usuario. 
 -- ¡IMPORTANTE! Cambia el '1' por el ID real de tu usuario recién creado.
 UPDATE eventos SET usuario_id = 1 WHERE id > 0;
