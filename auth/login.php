@@ -87,7 +87,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div class="grupo-formulario">
                     <label for="clave">Contraseña</label>
-                    <input type="password" id="clave" name="clave" minlength="8" autocomplete="current-password" required>
+                    <div class="password-wrapper">
+                        <input type="password" id="clave" name="clave" minlength="8" autocomplete="current-password" required>
+                    </div>
+                    
                 </div>
 
                 <div class="acciones-formulario">
@@ -98,5 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </main>
+    <script src="../js/password-toggle.js"></script>
 </body>
 </html>

@@ -111,13 +111,17 @@ if (isset($_SESSION['uid']))
 
                 <div class="grupo-formulario">
                     <label for="clave">Contraseña</label>
-                    <input type="password" id="clave" name="clave" minlength="8" autocomplete="new-password" required>
+                    <div class="password-wrapper">
+                        <input type="password" id="clave" name="clave" minlength="8" autocomplete="new-password" required>
+                    </div>
                     <?php if (!empty($errores['clave'])): ?><small style="color: var(--color-peligro);"><?= $errores['clave'] ?></small><?php endif; ?>
                 </div>
 
                 <div class="grupo-formulario">
                     <label for="clave2">Repetir contraseña</label>
-                    <input type="password" id="clave2" name="clave2" minlength="8" autocomplete="new-password" required>
+                    <div class="password-wrapper">
+                        <input type="password" id="clave2" name="clave2" minlength="8" autocomplete="new-password" required>
+                    </div>
                     <?php if (!empty($errores['clave2'])): ?><small style="color: var(--color-peligro);"><?= $errores['clave2'] ?></small><?php endif; ?>
                 </div>
 
@@ -129,5 +133,6 @@ if (isset($_SESSION['uid']))
             </form>
         </div>
     </main>
+    <script src="../js/password-toggle.js"></script>
     </body>
 </html>

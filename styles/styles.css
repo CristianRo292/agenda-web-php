@@ -1237,3 +1237,63 @@ a:hover{
 .login-avatar {
   margin-bottom: 20px;
 }
+
+/* ==========================================
+   15. TOGGLE DE VISIBILIDAD DE CONTRASEÑA
+   ========================================== */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 48px !important; /* Espacio para el botón */
+  width: 100%;
+}
+
+.btn-toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  color: var(--color-text-placeholder);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+  z-index: 2;
+}
+
+.btn-toggle-password:hover {
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.btn-toggle-password:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+.btn-toggle-password svg {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+/* Ocultar el ícono por defecto y mostrar el correcto según el estado */
+.btn-toggle-password .icon-eye-off {
+  display: none;
+}
+
+.btn-toggle-password.is-visible .icon-eye {
+  display: none;
+}
+
+.btn-toggle-password.is-visible .icon-eye-off {
+  display: block;
+}
