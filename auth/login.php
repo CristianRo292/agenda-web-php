@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = mb_strtolower(trim($_POST['correo'] ?? ''));
     $clave  = $_POST['clave'] ?? '';
 
-    $stmt = $mysqli->prepare('SELECT id, nombre, clave_hash FROM usuarios WHERE correo = ?');
+    $stmt = $mysqli->prepare('SELECT id, nombre, correo, clave_hash FROM usuarios WHERE correo = ?');
     $stmt->bind_param('s', $correo);
     $stmt->execute();
     $usuario = $stmt->get_result()->fetch_assoc();
@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         session_regenerate_id(true);
         $_SESSION['uid']    = (int) $usuario['id'];
         $_SESSION['nombre'] = $usuario['nombre'];
+        $_SESSION['correo'] = $usuario['correo']; // ⭐ NUEVO
         header('Location: ../index.php');
         exit;
     }
@@ -41,18 +42,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body class="layout">
-    <header class="site-header">
+    <!-- <header class="site-header">
         <div class="contenedor site-header__inner">
             <a href="../index.php" class="logo">
                 <img src="../image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span>
             </a>
         </div>
-    </header>
+    </header> -->
 
     <main class="contenedor-principal">
         <div class="tarjeta-formulario">
+           
             <div class="encabezado-formulario">
-                <!-- ✨ NUEVA IMAGEN REDONDA DE PERFIL / LOGO -->
+                <!-- ⭐ NUEVO: Nombre de la marca arriba de la imagen -->
+                <div class="login-brand">
+                    Agenda<span>Web</span>
+                </div>
+                
+                <!-- Imagen redonda -->
                 <img src="../image/imagenLogiFormal.png" alt="Avatar de AgendaWeb" class="login-avatar">
                 
                 <h1>Iniciar Sesión</h1>
@@ -64,6 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
             <?php if (isset($_GET['salio'])): ?>
                 <div class="alert alert--ok"><span>👋</span> Cerraste sesión. ¡Hasta pronto!</div>
+            <?php endif; ?>
+            <?php if (isset($_GET['cuenta_eliminada'])): ?>
+                <div class="alert alert--ok"><span>🗑️</span> Tu cuenta ha sido eliminada correctamente.</div>
             <?php endif; ?>
             <?php if ($error): ?>
                 <div class="alert alert--notOk"><span>⚠️</span> <?= htmlspecialchars($error) ?></div>

@@ -831,3 +831,409 @@ a:hover{
     text-align: center;
   }
 }
+
+/* ==========================================
+   12. MENÚ DESPLEGABLE DE FILTROS (iOS Style)
+   ========================================== */
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Botón de filtros */
+.btn-filters {
+  position: relative;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1.5px solid rgba(92, 107, 87, 0.3);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.btn-filters:hover {
+  background: #ffffff;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  transform: rotate(15deg);
+}
+
+.btn-filters.is-active {
+  background: var(--color-accent);
+  color: #ffffff;
+  border-color: var(--color-accent);
+}
+
+/* Indicador de filtros personalizados (puntito verde) */
+.filter-indicator {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+/* Panel desplegable */
+.filters-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 60px rgba(31, 41, 30, 0.15);
+  padding: 20px;
+  min-width: 260px;
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.95);
+  transition: opacity 0.25s var(--ease-smooth),
+              visibility 0.25s var(--ease-smooth),
+              transform 0.25s var(--ease-spring);
+}
+
+.filters-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.filters-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
+}
+
+.filters-reset {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+
+.filters-reset:hover {
+  background: var(--color-accent-soft);
+}
+
+/* Formulario de filtros */
+.filters-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Toggle Switch estilo iOS */
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+
+.filter-toggle:hover {
+  background: rgba(45, 90, 27, 0.04);
+}
+
+.filter-toggle input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: var(--transition-spring);
+}
+
+.filter-toggle input[type="checkbox"]:checked + .toggle-switch {
+  background: var(--color-accent);
+}
+
+.filter-toggle input[type="checkbox"]:checked + .toggle-switch::after {
+  transform: translateX(18px);
+}
+
+.toggle-label {
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  user-select: none;
+}
+
+/* Botón aplicar filtros */
+.btn-apply-filters {
+  margin-top: 8px;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #3a7224 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  width: 100%;
+}
+
+.btn-apply-filters:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(45, 90, 27, 0.3);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 600px) {
+  .search-wrapper {
+    width: 100%;
+  }
+  
+  .filters-panel {
+    right: 0;
+    left: 0;
+    min-width: 100%;
+  }
+}
+
+/* ==========================================
+   13. MENÚ DE USUARIO (Header Dropdown)
+   ========================================== */
+.user-menu {
+  position: relative;
+}
+
+.user-menu__trigger {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #3a7224 100%);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  transition: var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(45, 90, 27, 0.2);
+}
+
+.user-menu__trigger:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(45, 90, 27, 0.3);
+}
+
+.user-menu__trigger.is-active {
+  transform: scale(0.95);
+}
+
+/* Panel desplegable */
+.user-menu__panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 60px rgba(31, 41, 30, 0.15);
+  min-width: 280px;
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.95);
+  transition: opacity 0.25s var(--ease-smooth),
+              visibility 0.25s var(--ease-smooth),
+              transform 0.25s var(--ease-spring);
+  overflow: hidden;
+}
+
+.user-menu__panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Cabecera del menú (datos del usuario) */
+.user-menu__header {
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(45, 90, 27, 0.08) 0%, rgba(107, 156, 84, 0.05) 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.user-menu__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #3a7224 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.user-menu__info {
+  flex: 1;
+  min-width: 0; /* Permite truncar texto largo */
+}
+
+.user-menu__name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-menu__email {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Lista de acciones */
+.user-menu__actions {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.user-menu__action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  text-align: left;
+  font-family: var(--font-stack);
+}
+
+.user-menu__action:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.user-menu__action svg {
+  flex-shrink: 0;
+}
+
+/* Variante peligro (eliminar cuenta) */
+.user-menu__action--danger {
+  color: #7a1a1a; /* Rojo oscuro casi tinto */
+}
+
+.user-menu__action--danger:hover {
+  background: rgba(211, 47, 47, 0.08);
+}
+
+.user-menu__action--danger svg {
+  color: #7a1a1a;
+}
+
+/* Separador */
+.user-menu__divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.06);
+  margin: 4px 12px;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 600px) {
+  .user-menu__panel {
+    right: -12px;
+    min-width: calc(100vw - 24px);
+    max-width: 320px;
+  }
+}
+
+/* ==========================================
+   14. LOGIN SIN HEADER (Marca centrada)
+   ========================================== */
+.login-brand {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-align: center;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.login-brand span {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+/* Ajuste: reducir margen inferior de la imagen para que se vea más compacto */
+.login-avatar {
+  margin-bottom: 20px;
+}

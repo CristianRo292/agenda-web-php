@@ -73,17 +73,21 @@ if (isset($_SESSION['uid']))
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body class="layout">
-    <header class="site-header">
+    <!-- <header class="site-header">
         <div class="contenedor site-header__inner">
             <a href="../index.php" class="logo">
                 <img src="../image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span>
             </a>
         </div>
-    </header>
+    </header> -->
 
     <main class="contenedor-principal">
         <div class="tarjeta-formulario">
             <div class="encabezado-formulario">
+                <!-- ⭐ NUEVO: Nombre de la marca arriba de la imagen -->
+                <div class="login-brand">
+                    Agenda<span>Web</span>
+                </div>
                 <h1>Crear Cuenta</h1>
                 <p>Regístrate para comenzar a organizar tu agenda de forma segura.</p>
             </div>
