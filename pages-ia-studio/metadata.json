@@ -1,0 +1,6 @@
+{
+  "name": "AgendaWeb",
+  "description": "Aplicación web CRUD segura para la gestión de eventos personales con estética iOS Bosque Sereno.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
