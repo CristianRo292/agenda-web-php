@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             $stmt->close();
             $mysqli->close();
-            header('Location: index.php?ok=1');
+            header('Location: dashboard.php?ok=1');
             exit;
         } else {
             $errores['general'] = 'Error al guardar en la base de datos.';
@@ -86,13 +86,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600" rel="stylesheet">
     
     <link rel="stylesheet" href="styles/styles.css">
+    <!-- dashboard -->
 </head>
 <body class="layout">
     <header class="site-header">
         <div class="contenedor site-header__inner">
-            <a href="index.php" class="logo"><img src="image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span></a>
+            <a href="dashboard.php" class="logo"><img src="image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span></a>
             <nav class="nav">
-                <a href="index.php" class="nav__link">Mis eventos</a>
+                <a href="dashboard.php" class="nav__link">Mis eventos</a>
                 <a href="registrar.php" class="nav__link is-active">Nuevo evento</a>
             </nav>
         </div>

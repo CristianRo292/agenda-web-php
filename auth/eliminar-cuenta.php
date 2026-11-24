@@ -4,13 +4,13 @@ require __DIR__ . '/../data/conexion.php';
 
 // Solo aceptar POST (seguridad)
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../index.php');
+    header('Location: ../dashboard.php');
     exit;
 }
 
 // Confirmación doble: debe venir el parámetro 'confirmar'
 if (!isset($_POST['confirmar']) || $_POST['confirmar'] !== 'SI') {
-    header('Location: ../index.php');
+    header('Location: ../dashboard.php');
     exit;
 }
 
@@ -41,12 +41,12 @@ if ($stmt) {
     } else {
         $stmt->close();
         $mysqli->close();
-        header('Location: ../index.php?error=No se pudo eliminar la cuenta.');
+        header('Location: ../dashboard.php?error=No se pudo eliminar la cuenta.');
         exit;
     }
 } else {
     $mysqli->close();
-    header('Location: ../index.php?error=Error en la consulta.');
+    header('Location: ../dashboard.php?error=Error en la consulta.');
     exit;
 }
 ?>

@@ -92,12 +92,12 @@ if ($result) {
 
   <header class="site-header">
     <div class="contenedor site-header__inner">
-        <a href="index.php" class="logo">
+        <a href="dashboard.php" class="logo">
         <img src="image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span>
         </a>
         <nav class="nav">
         <a href="explorar.php" class="nav__link <?= basename($_SERVER['PHP_SELF']) === 'explorar.php' ? 'is-active' : '' ?>">Explorar</a>
-        <a href="index.php" class="nav__link <?= basename($_SERVER['PHP_SELF']) === 'index.php' ? 'is-active' : '' ?>">Mis eventos</a>
+        <a href="dashboard.php" class="nav__link <?= basename($_SERVER['PHP_SELF']) === 'dashboard.php' ? 'is-active' : '' ?>">Mis eventos</a>
         <a href="registrar.php" class="nav__link <?= basename($_SERVER['PHP_SELF']) === 'registrar.php' ? 'is-active' : '' ?>">Nuevo evento</a>
         
         <!-- ⭐ MENÚ DE USUARIO ESTANDARIZADO -->
@@ -176,7 +176,7 @@ if ($result) {
       <div class="page__actions">
         <!-- Barra de búsqueda + Botón de filtros -->
         <div class="search-wrapper">
-          <form method="GET" action="index.php" class="search-form">
+          <form method="GET" action="dashboard.php" class="search-form">
             <!-- Preservar los filtros actuales al buscar -->
             <input type="hidden" name="f_titulo" value="<?= $f_titulo ?>">
             <input type="hidden" name="f_categoria" value="<?= $f_categoria ?>">
@@ -187,7 +187,7 @@ if ($result) {
             <input type="search" name="busqueda" placeholder="Buscar eventos..." value="<?= htmlspecialchars($busqueda) ?>" aria-label="Buscar eventos">
             <button type="submit" class="btn-search" aria-label="Buscar">🔍</button>
             <?php if ($busqueda !== ''): ?>
-              <a href="index.php" class="btn-clear" title="Limpiar búsqueda">✕</a>
+              <a href="dashboard.php" class="btn-clear" title="Limpiar búsqueda">✕</a>
             <?php endif; ?>
           </form>
           
@@ -212,7 +212,7 @@ if ($result) {
               <button type="button" class="filters-reset" id="btnResetFiltros">Restablecer</button>
             </div>
             
-            <form method="GET" action="index.php" class="filters-form" id="formFiltros">
+            <form method="GET" action="dashboard.php" class="filters-form" id="formFiltros">
                 <!-- Preservar la búsqueda actual -->
                 <input type="hidden" name="busqueda" value="<?= htmlspecialchars($busqueda) ?>">
                 <!-- ⭐ Indicador: avisa a PHP que el usuario personalizó los filtros -->
@@ -303,7 +303,7 @@ if ($result) {
                 <?= $busqueda !== '' ? 'Intenta con otros términos o ajusta los filtros.' : 'Tu agenda está libre por ahora. ¡Aprovecha para organizar tu primer evento!' ?>
             </p>
             <?php if ($busqueda !== ''): ?>
-                <a href="index.php" class="btn-primary" style="margin-top: 1.5rem; display: inline-flex;">Ver todos los eventos</a>
+                <a href="dashboard.php" class="btn-primary" style="margin-top: 1.5rem; display: inline-flex;">Ver todos los eventos</a>
             <?php else: ?>
                 <a href="registrar.php" class="btn-primary" style="margin-top: 1.5rem; display: inline-flex;">+ Agregar primer evento</a>
             <?php endif; ?>

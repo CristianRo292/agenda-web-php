@@ -1,0 +1,100 @@
+p {
+    color: black;
+    font-size: 20px;
+}
+
+.encabezado{
+    background-color:rgba(36, 64, 8, 0.845) ;
+    min-height: 200px;
+    font-size: 200% ;
+}
+
+.portada{
+    padding: 5%; /* Reducido un poco para que en móvil no ocupe tanto espacio */
+    background-image: url('../imagenes/galaxia-astronomia-portada.jpg');
+    background-size: cover; /* Asegura que la galaxia cubra todo el fondo sin deformarse */
+    background-position: center;
+}
+
+.letras-encabezado{
+    color: rgb(250, 246, 246);
+    font-family: Calibri;
+    font-size: 100%;
+}
+
+body {
+  color: #2A2630;
+  background-color: #e4e8e0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+.tarjeta {
+    padding: 3%;
+    border: 2px solid #2A2630;
+    margin: 20px;
+    box-sizing: border-box;
+    background-color:rgba(36, 64, 8, 0.227) ;
+}
+
+/* tamaño de imagen maximo, es igual a su contenedro, no puede ser mas grande que su contenedor */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.entrada-blog {
+    background-color: #ffffff;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+
+.grid-3-columnas {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 20px;
+    padding: 10px;
+}
+
+.rejilla {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 90%;
+    margin: 0 auto;
+    gap: 12px;
+}
+
+@media (min-width: 768px) {
+    .grid-3-columnas {
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas en computadoras */
+    }
+    .rejilla {
+        grid-template-columns: 1fr 1fr; /* 2 columnas en computadoras */
+    }
+}
+
+
+table {
+  width: 95%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  border-radius: 5px;
+}
+thead { background-color: rgb(59, 101, 33); color: white; }
+th, td { border: 1px solid rgba(0, 0, 0, 0.22); padding: 12px; text-align: center; }
+footer {
+   background-color: rgb(136, 168, 122); 
+   color: white; text-align: center; 
+   padding: 10px;
+   width: 100%; 
+  }
+

@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnToggle.type = 'button';
         btnToggle.className = 'btn-toggle-password';
         btnToggle.setAttribute('aria-label', 'Mostrar contraseña');
-        btnToggle.setAttribute('tabindex', '-1'); // No enfocar con Tab
+        btnToggle.setAttribute('tabdashboard', '-1'); // No enfocar con Tab
         
         // Ícono SVG de ojo abierto (se muestra cuando la contraseña está OCULTA)
         const iconEye = `
@@ -52,4 +52,5 @@ document.addEventListener('DOMContentLoaded', () => {
             input.focus();
         });
     });
+    // dashboard
 });

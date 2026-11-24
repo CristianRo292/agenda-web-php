@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/../auth/sesion.php';
 header('Content-Type: application/json');
+// index
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['success' => false, 'message' => 'Método no permitido']);

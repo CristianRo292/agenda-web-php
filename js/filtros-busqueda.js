@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filtersPanel.setAttribute('aria-hidden', 'true');
         }
     });
-
+// dashboard
     // 3. Cerrar panel con tecla Escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && filtersPanel.classList.contains('is-open')) {

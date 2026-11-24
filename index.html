@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <!-- CORRECCIÓN 1: Controla el ancho y el zoom en dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home/styles/styles.css">
+    <title>AgendaWeb · Cristian</title>
+  </head>
+  <body>
+    <header class="portada">
+      <div style="background-color: rgba(0, 0, 0, 0.403); padding: 20px;">
+        <!-- Tipografías en em/rem/vw se adaptan mejor que porcentajes tan altos en mobile -->
+        <h1 style="font-size: 2.5rem; color: #ffffff;">Bienvenido al Centro de Actividades de Cristian</h1>
+          <p class="letras-encabezado">
+            Un proyecto perteneciente al Tecnológico Superior de Jalisco <br>
+            Que busca desarrollar habilidades técnicas en la elaboración de Aplicaciones Web  
+          </p>
+          <hr>
+          <p class="letras-encabezado">
+            <strong>Autor:</strong> Cristian Rodríguez Rodríguez |
+            <strong>Fecha de Edición:</strong> 23/11/2026
+          </p>
+      </div>
+    </header>
+    
+    <hr>
+    <p class="tarjeta">
+      En este espacio encontrarás una recopilación de las actividades realizadas por Cristian Rodríguez <br>
+      Durante el desarrollo de las actividades correspondientes a la asignatura de Desarrollo de Aplicaciones WEB
+    </p>
+    <hr width="95%" size="2" class="separcion-entre-pagina">
+    
+    <div class="grid-3-columnas">
+        <article class="entrada-blog">
+            <h1>Repositorio de GitHub</h1>
+            <!-- CORRECCIÓN 2: Quitamos el width físico para controlarlo con CSS flexible -->
+            <a href="https://github.com/CristianRo292/agenda-web-php" target="_blank">
+              <img src="home/imagenes/icnoGithubAdaptado.jpg" alt="Imagen de repositorio Github">
+            </a>
+        </article>
+        <article class="entrada-blog">
+            <h1>Agenda Web</h1>
+            <a href="dashboard.php">
+              <img src="home/imagenes/imagenAgenda.png" alt="Imagen de web responsiva">
+            </a>
+        </article>
+        <article class="entrada-blog">
+            <h1>Actividad Banderas</h1>
+            <a href="home/banderas-svg.html">
+              <img src="home/imagenes/banderas-portada.jpg" alt="Imagen de banderas del mundo">
+            </a>
+        </article>
+
+        <article class="entrada-blog">
+            <h1>Prácticas de WRD</h1>
+            <a href="home/practicas-wrd.html">
+              <img src="home/imagenes/wrd-portada.jpeg" alt="Imagen de web responsiva">
+            </a>
+        </article>
+        <article class="entrada-blog">
+            <h1>Formulario Unidad 2</h1>
+            <a href="home/pag-practicas/AgendaWeb-PHP-U2/formulario.html">
+              <img src="home/imagenes/portada-formularios.jpg" alt="Imagen de formulario html">
+            </a>
+        </article>
+    </div>
+      
+    <hr width="95%" size="2" class="separcion-entre-pagina">
+   
+    <footer>
+        &copy; Elaborado por <b>Cristian Rodríguez</b>, materia: <b>Desarrollo de Aplicaciones Web</b>, <a href="https://github.com/CristianRo292">Enlace a GitHub aquí.</a>
+    </footer>
+  </body>
+</html>

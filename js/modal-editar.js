@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (resultado.success) {
                 cerrarModal(); // Cierra el modal
                 // Redirige a la página principal agregando un parámetro en la URL para reflejar los cambios
-                window.location.href = 'index.php?updated=1';
+                window.location.href = 'dashboard.php?updated=1';
             } else {
                 // Si hay un error lógico controlado, muestra una alerta y restaura el botón
                 alert('Error: ' + (resultado.message || 'No se pudo actualizar el evento.'));
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 4. FUNCIONES AUXILIARES
     // ==========================================
-    
+    // dashboard
     // Función para mostrar el modal en pantalla
     function abrirModal() {
         modal.classList.add('is-open');            // Añade la clase CSS que hace visible el modal

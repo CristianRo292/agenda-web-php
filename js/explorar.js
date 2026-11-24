@@ -1,6 +1,8 @@
 // ==========================================
 // explorar.js · P11 · Fetch API & DOM Painting
 // ==========================================
+// dashboard
+
 
 // 1. Referencias a los "huecos" del HTML
 const lista    = document.getElementById('lista');
@@ -18,7 +20,7 @@ function formatearFecha(fechaStr) {
 // 3. Crear una tarjeta HTML segura (usando textContent para evitar XSS)
 function crearTarjeta(ev) {
     const article = document.createElement('article');
-    article.className = 'card'; // Usa tus estilos CSS existentes de index.php
+    article.className = 'card'; // Usa tus estilos CSS existentes de dashboard.php
 
     // Header de la tarjeta (Badge + Fecha)
     const header = document.createElement('div');
@@ -26,7 +28,7 @@ function crearTarjeta(ev) {
     
     const badge = document.createElement('span');
     badge.className = 'card__badge';
-    // Asignar clase específica si es personal o importante (igual que en index.php)
+    // Asignar clase específica si es personal o importante (igual que en dashboard.php)
     if (ev.categoria?.toLowerCase() === 'personal') badge.classList.add('card__badge--personal');
     if (ev.categoria?.toLowerCase() === 'importante') badge.classList.add('card__badge--importante');
     badge.textContent = ev.categoria || 'Sin categoría';

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['uid'])) {
-    header('Location: ../index.php');
+    header('Location: ../dashboard.php');
     exit;
 }
 require __DIR__ . '/../data/conexion.php';
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['uid']    = (int) $usuario['id'];
         $_SESSION['nombre'] = $usuario['nombre'];
         $_SESSION['correo'] = $usuario['correo']; // ⭐ NUEVO
-        header('Location: ../index.php');
+        header('Location: ../dashboard.php');
         exit;
     }
     $error = 'Correo o contraseña incorrectos.';
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="layout">
     <!-- <header class="site-header">
         <div class="contenedor site-header__inner">
-            <a href="../index.php" class="logo">
+            <a href="../dashboard.php" class="logo">
                 <img src="../image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span>
             </a>
         </div>

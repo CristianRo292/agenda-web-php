@@ -36,7 +36,7 @@ $mysqli->close();
             <a href="index.php" class="logo">Agenda<span>Web</span></a>
             <nav class="nav">
         <a href="explorar.php" class="nav__link <?= basename($_SERVER['PHP_SELF']) === 'explorar.php' ? 'is-active' : '' ?>">Explorar</a>
-        <a href="index.php" class="nav__link <?= basename($_SERVER['PHP_SELF']) === 'index.php' ? 'is-active' : '' ?>">Mis eventos</a>
+        <a href="dashboard.php" class="nav__link <?= basename($_SERVER['PHP_SELF']) === 'dashboard.php' ? 'is-active' : '' ?>">Mis eventos</a>
         <a href="registrar.php" class="nav__link <?= basename($_SERVER['PHP_SELF']) === 'registrar.php' ? 'is-active' : '' ?>">Nuevo evento</a>
         
         <!-- ⭐ MENÚ DE USUARIO ESTANDARIZADO -->

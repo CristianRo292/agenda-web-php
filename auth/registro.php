@@ -3,7 +3,7 @@
 session_start();
 if (isset($_SESSION['uid']))
     {
-        header('Location:index.php');
+        header('Location:dashboard.php');
         exit;
     }
     require __DIR__.'/../data/conexion.php';
@@ -75,7 +75,7 @@ if (isset($_SESSION['uid']))
 <body class="layout">
     <!-- <header class="site-header">
         <div class="contenedor site-header__inner">
-            <a href="../index.php" class="logo">
+            <a href="../dashboard.php" class="logo">
                 <img src="../image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span>
             </a>
         </div>

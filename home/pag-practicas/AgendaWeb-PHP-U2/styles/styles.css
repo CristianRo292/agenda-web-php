@@ -1,0 +1,209 @@
+/* ==========================================
+   1. VARIABLES Y CONFIGURACIÓN GLOBAL
+   ========================================== */
+:root {
+  /* Paleta refinada para mayor profundidad */
+  --color-fondo: #f4f6f2;
+  --color-superficie: #ffffff;
+  --color-texto-principal: #1d2419;
+  --color-texto-secundario: #525c4d;
+  --color-texto-placeholder: #8a9485;
+  --color-acento: #335c1f;
+  --color-acento-hover: #264717;
+  --color-borde: #dce3d8;
+  --color-borde-focus: #335c1f;
+
+  /* fuentes que usaremos para la pagina */
+  --fuente-titulos: Calibri;
+  --fuente-cuerpo: 'IBM Plex Sans', sans-serif;
+
+  /* Escala de espaciado consistente (sistema de 4px) */
+  --space-xs: 0.5rem;  /* 8px */
+  --space-sm: 1rem;    /* 16px */
+  --space-md: 1.5rem;  /* 24px */
+  --space-lg: 2.5rem;  /* 40px */
+  
+  /* Transiciones suaves para sensación premium */
+  --transicion-suave: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--color-texto-principal);
+  background-color: var(--color-fondo);
+  font-family: var(--fuente-cuerpo);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  /* Suavizado de fuentes para Mac/iOS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================
+   2. MAQUETACIÓN DEL FORMULARIO
+   ========================================== */
+.contenedor-principal {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-md);
+}
+
+.tarjeta-formulario {
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: 16px; /* Un poco más redondeado = más moderno */
+  box-shadow: 0 12px 32px rgba(29, 36, 25, 0.04); /* Sombra más difusa y elegante */
+  width: 100%;
+  max-width: 560px; /* Ligeramente más estrecho para mejor legibilidad */
+  padding: var(--space-lg);
+}
+
+.encabezado-formulario {
+  margin-bottom: var(--space-md);
+  text-align: center; /* Centrado para mayor equilibrio visual */
+}
+
+.encabezado-formulario h1 {
+  font-family: var(--fuente-titulos);
+  font-size: 1.75rem; /* 28px */
+  font-weight: 600;
+  color: var(--color-texto-principal);
+  margin: 0 0 var(--space-xs) 0;
+  letter-spacing: -0.02em; /* Toque editorial */
+}
+
+.encabezado-formulario p {
+  color: var(--color-texto-secundario);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   3. CAMPOS Y ENTRADAS
+   ========================================== */
+.formulario-agenda {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.grupo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.grupo-formulario label {
+  font-family: var(--fuente-cuerpo);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-texto-principal);
+  letter-spacing: 0.01em;
+}
+
+.grupo-formulario input,
+.grupo-formulario select,
+.grupo-formulario textarea {
+  font-family: var(--fuente-cuerpo);
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--color-borde);
+  border-radius: 10px;
+  background-color: var(--color-superficie);
+  color: var(--color-texto-principal);
+  transition: var(--transicion-suave);
+  outline: none;
+  width: 100%;
+}
+
+/* Placeholder sutil */
+.grupo-formulario input::placeholder,
+.grupo-formulario textarea::placeholder {
+  color: var(--color-texto-placeholder);
+  font-weight: 400;
+}
+
+/* Estados de foco elegantes */
+.grupo-formulario input:focus,
+.grupo-formulario select:focus,
+.grupo-formulario textarea:focus {
+  border-color: var(--color-borde-focus);
+  box-shadow: 0 0 0 4px rgba(51, 92, 31, 0.08); /* Anillo de foco suave */
+}
+
+/* Flecha personalizada para el SELECT (reemplaza la del navegador) */
+.grupo-formulario select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23525c4d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.grupo-formulario textarea {
+  resize: vertical; /* Solo permite estirar hacia abajo */
+  min-height: 100px;
+}
+
+.fila-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+/* ==========================================
+   4. BOTONES DE ACCIÓN
+   ========================================== */
+.acciones-formulario {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-borde); /* Separador sutil */
+}
+
+.btn-primario,
+.btn-secundario {
+  font-family: var(--fuente-cuerpo);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  padding: 0.85rem 1.5rem;
+  cursor: pointer;
+  transition: var(--transicion-suave);
+  letter-spacing: 0.01em;
+}
+
+.btn-primario {
+  background-color: var(--color-acento);
+  color: #ffffff;
+  border: 1.5px solid var(--color-acento);
+  flex: 2;
+}
+
+.btn-primario:hover {
+  background-color: var(--color-acento-hover);
+  border-color: var(--color-acento-hover);
+  transform: translateY(-1px); /* Efecto táctil sutil */
+  box-shadow: 0 4px 12px rgba(51, 92, 31, 0.2);
+}
+
+.btn-primario:active {
+  transform: translateY(0);
+}
+
+.btn-secundario {
+  background-color: transparent;
+  color: var(--color-texto-secundario);
+  border: 1.5px solid var(--color-borde);
+  flex: 1
+}

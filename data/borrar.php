@@ -2,9 +2,10 @@
 require __DIR__ . '/../auth/sesion.php';
 // 1. Verificar que la petición sea por método POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../index.php');
+    header('Location: ../dashboard.php');
     exit;
 }
+// dashboard
 
 // 2. Obtener y validar el ID
 $id = $_POST['id'] ?? null;
@@ -12,7 +13,7 @@ $id = $_POST['id'] ?? null;
 // Validamos que el ID exista y sea estrictamente un número entero
 if (!$id || !filter_var($id, FILTER_VALIDATE_INT)) {
     // Si el ID no es válido, redirigimos con error
-    header('Location: ../index.php?deleted=0');
+    header('Location: ../dashboard.php?deleted=0');
     exit;
 }
 
@@ -34,19 +35,19 @@ if ($stmt) {
         $stmt->close();
         $mysqli->close();
         // Éxito: redirigimos con mensaje de éxito
-        header('Location: ../index.php?deleted=1');
+        header('Location: ../dashboard.php?deleted=1');
         exit;
     } else {
         // El ID no existía en la base de datos
         $stmt->close();
         $mysqli->close();
-        header('Location: ../index.php?deleted=0');
+        header('Location: ../dashboard.php?deleted=0');
         exit;
     }
 } else {
     // Error en la preparación de la consulta
     $mysqli->close();
-    header('Location: ../index.php?deleted=0');
+    header('Location: ../dashboard.php?deleted=0');
     exit;
 }
 ?>
