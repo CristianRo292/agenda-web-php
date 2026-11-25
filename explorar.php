@@ -96,16 +96,20 @@ $mysqli->close();
         </div>
 
         <!-- Hueco 2: Buscador en vivo -->
-        <form class="search-form" id="filtros" role="search" style="margin-bottom: 24px; max-width: 600px;">
-            <input type="search" id="q" maxlength="60" placeholder="Buscar por título o descripción…" aria-label="Buscar eventos">
-            
-            <select id="categoria" aria-label="Filtrar por categoría" style="border: 1.5px solid rgba(92, 107, 87, 0.3); border-radius: 999px; padding: 8px 16px; background: rgba(255,255,255,0.8);">
-                <option value="0">Todas las categorías</option>
-                <?php foreach ($categorias as $cat): ?>
-                    <option value="<?= (int) $cat['id'] ?>"><?= e($cat['nombre']) ?></option>
-                <?php endforeach; ?>
-            </select>
+       <form class="search-form" id="filtros" role="search">
+            <div class="search-wrapper">
+                <input type="search" id="q" maxlength="60" placeholder="Buscar por título o descripción…" aria-label="Buscar eventos">
+                
+                <select id="categoria" aria-label="Filtrar por categoría">
+                    <option value="0">Todas las categorías</option>
+                    <?php foreach ($categorias as $cat): ?>
+                        <option value="<?= (int) $cat['id'] ?>"><?= e($cat['nombre']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </form>
+
+
 
         <!-- Hueco 3: Lista de tarjetas (vacía inicialmente) -->
         <section class="card-list" id="lista" aria-label="Eventos" aria-live="polite"></section>

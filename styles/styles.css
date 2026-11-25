@@ -1297,3 +1297,86 @@ a:hover{
 .btn-toggle-password.is-visible .icon-eye-off {
   display: block;
 }
+
+/* Estilo general para el formulario de búsqueda */
+.search-form {
+    margin-bottom: 24px;
+    max-width: 600px;
+    width: 100%;
+    padding: 8px;
+    background: var(--glass-bg); /* Utiliza tu variable CSS para el fondo con glassmorphism */
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo para el contenedor de búsqueda y categorías */
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+/* Estilo para el input de búsqueda */
+.search-wrapper input {
+    flex: 1; /* Esto hace que el input ocupe todo el espacio disponible */
+    border: none;
+    background: transparent;
+    padding: 10px 15px;
+    font-size: 1rem;
+    outline: none;
+    color: var(--color-text-primary);
+}
+
+/* Estilo para el select de categorías */
+.search-wrapper select {
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 8px 15px;
+    background: var(--glass-bg);
+    cursor: pointer;
+    outline: none;
+    font-size: 0.9rem;
+    color: var(--color-text-primary);
+    transition: background 0.2s;
+}
+
+.search-wrapper select:hover {
+    background: var(--glass-bg);
+}
+
+/* Botón de búsqueda (opcional) */
+.search-button {
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.search-button:hover {
+    background: #6a826d;
+    transform: scale(1.02);
+}
+
+/* Ajuste para móviles */
+@media (max-width: 480px) {
+    .search-wrapper {
+        flex-direction: column;
+    }
+    
+    .search-wrapper input {
+        width: 100%;
+    }
+    
+    .search-wrapper select, 
+    .search-button {
+        width: 100%;
+    }
+}
