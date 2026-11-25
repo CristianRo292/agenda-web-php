@@ -3,3 +3,6 @@ sandbox/
 
 # Ignorar únicamente el archivo de conexión en la carpeta data
 data/conexion.php
+ 
+#ignoramos la carpeta wiki
+wiki/
