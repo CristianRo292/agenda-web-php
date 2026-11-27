@@ -1299,12 +1299,12 @@ a:hover{
 }
 
 /* Estilo general para el formulario de búsqueda */
-.search-form {
+.search-formEx {
     margin-bottom: 24px;
     max-width: 600px;
     width: 100%;
     padding: 8px;
-    background: var(--glass-bg); /* Utiliza tu variable CSS para el fondo con glassmorphism */
+    background: var(--glass-bg); /*Utiliza tu variable CSS para el fondo con glassmorphism*/
     border-radius: var(--radius-md);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
@@ -1313,7 +1313,7 @@ a:hover{
 }
 
 /* Estilo para el contenedor de búsqueda y categorías */
-.search-wrapper {
+.search-wrapperEx {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -1321,7 +1321,7 @@ a:hover{
 }
 
 /* Estilo para el input de búsqueda */
-.search-wrapper input {
+.search-wrapperEx input {
     flex: 1; /* Esto hace que el input ocupe todo el espacio disponible */
     border: none;
     background: transparent;
@@ -1332,7 +1332,7 @@ a:hover{
 }
 
 /* Estilo para el select de categorías */
-.search-wrapper select {
+.search-wrapperEx select {
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-md);
     padding: 8px 15px;
@@ -1344,7 +1344,7 @@ a:hover{
     transition: background 0.2s;
 }
 
-.search-wrapper select:hover {
+.search-wrapperEx select:hover {
     background: var(--glass-bg);
 }
 
@@ -1367,16 +1367,16 @@ a:hover{
 
 /* Ajuste para móviles */
 @media (max-width: 480px) {
-    .search-wrapper {
+    .search-wrappereEx {
         flex-direction: column;
     }
     
-    .search-wrapper input {
+    .search-wrapperEx input {
         width: 100%;
     }
     
-    .search-wrapper select, 
-    .search-button {
+    .search-wrapperEx select, 
+    .search-buttonEx {
         width: 100%;
     }
 }

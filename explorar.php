@@ -32,9 +32,11 @@ $mysqli->close();
 
     <!-- Header estandarizado con menú de usuario -->
     <header class="site-header">
-        <div class="contenedor site-header__inner">
-            <a href="index.php" class="logo">Agenda<span>Web</span></a>
-            <nav class="nav">
+    <div class="contenedor site-header__inner">
+        <a href="dashboard.php" class="logo">
+        <img src="image/logoPaginaWeb.png" alt="Logotipo formal de la pagina web">Agenda<span>Web</span>
+        </a>
+        <nav class="nav">
         <a href="explorar.php" class="nav__link <?= basename($_SERVER['PHP_SELF']) === 'explorar.php' ? 'is-active' : '' ?>">Explorar</a>
         <a href="dashboard.php" class="nav__link <?= basename($_SERVER['PHP_SELF']) === 'dashboard.php' ? 'is-active' : '' ?>">Mis eventos</a>
         <a href="registrar.php" class="nav__link <?= basename($_SERVER['PHP_SELF']) === 'registrar.php' ? 'is-active' : '' ?>">Nuevo evento</a>
@@ -59,6 +61,15 @@ $mysqli->close();
             
             <!-- Acciones -->
             <div class="user-menu__actions">
+                <a href="index.html" class="user-menu__action">
+                <!-- ´pendiente -->
+                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Inicio</span>
+                </a>
+                <div class="user-menu__divider"></div>
                 <a href="auth/logout.php" class="user-menu__action">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -83,7 +94,7 @@ $mysqli->close();
             </div>
         </div>
         </nav>
-        </div>
+    </div>
     </header>
 
     <main class="contenedor main-content">
@@ -94,10 +105,10 @@ $mysqli->close();
                 <p class="page__subtitle" id="estado" role="status">Cargando eventos…</p>
             </div>
         </div>
-
         <!-- Hueco 2: Buscador en vivo -->
-       <form class="search-form" id="filtros" role="search">
-            <div class="search-wrapper">
+       <form class="search-formEx
+    " id="filtros" role="search">
+            <div class="search-wrapperEx">
                 <input type="search" id="q" maxlength="60" placeholder="Buscar por título o descripción…" aria-label="Buscar eventos">
                 
                 <select id="categoria" aria-label="Filtrar por categoría">
